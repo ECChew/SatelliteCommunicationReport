@@ -300,7 +300,233 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 	\includegraphics[width=\linewidth]{azimuth}\\
 	\includegraphics[width=\linewidth]{elevation}
 \end{center}
-\appendix
+\section{Link Budget}
+
+	\subsection{Find the required data bit rate $R_{c}$ and symbol rate $R_{a}$ for transmitting the amount of 1000.0 MByte to the ground within one link window.}
+	
+		For the transmission, QPSK (quadrature phase shift keying) modulation is used. The modulation has 4 states so $M=4$ and $m$ can be calculated as $\log_2 M = 2$.
+		
+		For 16.25 hours of connection time, the required data bit rate $R_{c}$ and symbol rate $R_{a}$ can be obtained by the following expressions:
+		
+		\begin{equation} \label{eq_rc}
+			R_{c}= \dfrac{\# \ of Bits}{T_{con}} = \dfrac{1000 \unit{MByte} \cdot 8 \cdot 10^{8}}{58500 \unit{s}}= 136752.14 \unit{bit/s} 
+		\end{equation}
+	
+		\begin{equation} \label{eq_ra}
+			R_{a}= \dfrac{R_{c}}{m} = \dfrac{136752.14 \unit{Bit/s}}{2}= 68376.07 \unit{symbol/s} 
+		\end{equation}
+	
+	\subsection{Find the required bandwidth for the given modulation scheme and filtering.}	
+	
+		To calculate the bandwidth we will use the following expression:
+		
+		\begin{equation} \label{eq_ban}
+			B= \dfrac{R_{c}}{\Gamma} 
+		\end{equation}
+	
+		We need the value of the roll-off factor which is $\alpha=0.15$ to calculate the spectral efficiency $\Gamma$:
+		
+		\begin{equation} \label{eq_espectral_eff}
+			\Gamma= \dfrac{m}{1+\alpha} = \dfrac{2}{1+0.15} =  1.74
+		\end{equation}
+		
+		And therefore, going back to the equation \ref{eq_ban} the bandwidth value is:
+		
+		\begin{equation} \label{eq_ban2}
+			B= \dfrac{136752.14}{1.74} = 7.86 \cdot 10^{-4} \unit{Hz}
+		\end{equation}
+	
+	\subsection{Find the required energy per bit per noise $E_{c}=N_{o}$ for a BER of $10^{-6}$ and the corresponding SNR.}
+	
+		For the required BER of $10^{-6}$ and a QPSK modulation scheme, we will use the graph in Figure \ref{graf_BER} to obtain the Energy per bit per noise ratio $\left(\dfrac{E_{c}}{N_{o}}\right)$ and we get a value of $\dfrac{E_{c}}{N_{o}}\approx10.5 \unit{dB}$
+	
+		\begin{figure}[h]
+			\includegraphics[width=14cm]{graph_BER}
+			\caption{Bit Error Ratios for diferent Modulation Schemes Reference????}
+			\label{graf_BER}
+		\end{figure}
+	
+		Once we have the $\dfrac{E_{c}}{N_{o}}$ we can proceed to calculate the SNR:
+		
+		\begin{equation} \label{eq_snr}
+			SNR = \dfrac{R_{c} \cdot \dfrac{E_{c}} {N_{o}}}{B} = \dfrac{136752.14 \cdot 10.5} {7.86 \cdot 10^{-4}} = 19,51
+		\end{equation}
+		
+	\subsection{Find the total received noise at the antenna of the ground station $N_{i}$ and at the output of the receiver $N_{o}$.}	
+		
+		 To calculate the total received noise at the antenna of the ground station $N_{i}$ we can use the following expression: 
+		 
+		 \begin{equation} \label{eq_ni}
+		 	N_{i} = k \cdot T_{a} \cdot B
+		 \end{equation}
+	
+		In which the $k$ is the Bolzmann constant with a value of $ 1.38 \cdot 10^{-23} \unit{J/K}$, $B$ is the previously calculated bandwidth and $T_{a}$ is the antenna noise temperature, which can be found in the graph of Figure \ref{graph_Ta}.
+		
+		\begin{figure}[h]
+			\includegraphics[width=14cm]{graph_Ta}
+			\caption{Antenna noise temperature $T_{a}$ as a function of the Zenith angle and the frecuency. Reference????}
+			\label{graf_Ta}
+		\end{figure}
+		
+		
+		To calculate the $T_{a}$ we will take the worst case scenario under consideration, which is for an elevation of $5^{\circ}$ (Zenith Angle $\Theta = 85^{\circ}$). In this case we get a $T_{a} \approx 30.5 \unit{K} $
+	
+		Now that we have calculated all the values we can put them back in Equation \ref{eq_ni}:
+	
+		\begin{equation} \label{eq_ni2}
+			N_{i} = 1.38 \cdot 10^{-23} \cdot 30.5 \cdot 7.86 \cdot 10^{-4} = 4.21 \cdot 10^{-17} \unit{W}
+		\end{equation}
+	
+		To obtain the input noise $N_{o}$ we will use the following calculation:
+		
+		\begin{equation} \label{eq_no}
+			N_{o} = k \cdot \left(T_{a} + T{e} \right) \cdot B \cdot G_{r} 
+		\end{equation}
+	
+		In which $k$ is the the Bolzmann constant, $T_{a}$ is the previously calculated antenna noise temperature, $T_{e}$ is the equivalent noise temperature, $B$ is the Bandwidth and $G_{r}$ is the gain of the receiver in the ground station. 
+		
+		To calculate the equivalent noise temperature $T_{e}$ we need the noise figure, which is given as $F=2 \unit{dB}$ and the initial temperature $T_{0}$ which is set at 290 K:
+		
+		\begin{equation} \label{eq_te}
+			T_{e} = (F - 1) \cdot T_{0} = 169.62 \unit{K} 
+		\end{equation}
+	 	
+	 	With all the parameters from Equation \ref{eq_no} known, besides the  gain of the receiver in the ground station which is set to a design value of $G_{r}= 100000$, we can calculate the $N_{o}$:
+	 	
+	 	\begin{equation} \label{eq_no2}
+	 		N_{o} = 1.38 \cdot 10^{-23} \cdot \left(30.5 + 169.62 \right) \cdot 7.86 \cdot 10^{4} \cdot 100000 = 2.76 \cdot 10^{-11} \unit{W}
+	 	\end{equation}
+	 		
+	\subsection{Find the required signal power $S_{o}$ for the calculated SNR and bandwidth. Find the required input signal power $S_{i}$ , i.e. the power received by the antenna.}
+	
+		To calculate the required signal power $S_{o}$ we use the following equation:
+	
+		\begin{equation} \label{eq_so}
+			S_{o} = SNR \cdot N_{0} = 19,51 \cdot 2.76 \cdot 10^{-11} = 5,39 \cdot 10^{-10}  \unit{W}
+		\end{equation}
+	
+		And to obtain the input signal power $S_{i}$ we will use the receiver gain that we assume before to be 100000 W (or 60 dB):
+		
+		\begin{equation} \label{eq_si}
+			S_{i} = \dfrac{S_{0}}{G_{r}}= \dfrac{5,39 \cdot 10^{-10}}{100000} = 5,39 \cdot 10^{-15}  \unit{W}
+		\end{equation}		
+	
+	\subsection{Find the required EIRP of the satellite for the worst case, i.e. satellite elevation is 5$^{\circ}$}
+	
+		To calculate the EIRP for the worst case scenario with an elevation of 5$^{\circ}$ we can use the following formula:
+		
+		\begin{equation} \label{eq_eirp}
+		\begin{split}
+			EIRP = SNR \cdot &L_{p} \cdot k \cdot B \cdot \dfrac{T_{a}+T_{e}}{G_{a}} = \\
+			19.51  \cdot 3.84 \cdot 10^{20} \cdot 1.38 \cdot 10^{-23} \cdot &100000 \cdot \dfrac{30.5+169.61}{4.39 \cdot 10^{3}} = 451.31	 \unit{W}
+		\end{split}
+		\end{equation}
+	
+	\subsection{Design a transmitter with 30\% efficiency and a matching dish antenna. What is the	size of the antenna, how much DC power is required for the transmitter.}
+	
+		Finally we ought to design a transmitter with a 30\% efficiency and its antenna. For the transmitter we set a design value of 25 W. The first thing we have to calculate is the gain of the transmitter $G_{t}$:
+		
+		\begin{equation} \label{eq_gt}
+			G_{t} = \dfrac{EIRP}{P_{t}}= \dfrac{451.31}{25} = 18.05
+		\end{equation}
+	
+		Now that we have the gain of the transmitter, we will proceed to define the size of the antenna. For knowing its diameter $D$, we will have to know the phisical area of the antenna $A_{phy}$, and for that the effective area of the antenna $A_{eff}$:
+		
+		\begin{equation} \label{eq_aeff}
+			A_{eff} = \dfrac{G_{t} \cdot \lambda^{2}} {4 \cdot \pi }
+		\end{equation}
+	
+		Where lambda $\lambda$ is the wavelenght and can be calculated with the frequency $f$ and the speed of light $c$:
+		
+		\begin{equation} \label{eq_lambda}
+			\lambda = \dfrac{c} {f}= \dfrac{2.998 \cdot 10^{8}} {8.35 \cdot 10^{9}} = 3.59 \cdot 10^{-2} \unit{m}
+		\end{equation}
+	
+		Going back to the Equation \ref{eq_aeff}:
+		
+		\begin{equation} \label{eq_aeff2}
+			A_{eff} = \dfrac{{18.05} \cdot (3.59 \cdot 10^{-2})^{2}} {4 \cdot \pi } =  1.86 \cdot 10^{-3} \unit{m^{2}}
+		\end{equation}
+	
+		\begin{equation} \label{eq_aphy}
+			A_{phy} = \dfrac{A_{eff}} {\eta_{t}} = 
+			\dfrac{1.86 \cdot 10^{-3}} {0.3}=
+			6.18 \cdot 10^{-3} \unit{m^{2}}
+		\end{equation}
+		
+		\begin{equation} \label{eq_d}
+			D = 2 \cdot \sqrt{\dfrac{A_{phy}}{\pi}} =
+			2 \cdot \sqrt{\dfrac{6.18 \cdot 10^{-3}}{\pi}} = 8.87  \unit{m}
+		\end{equation}
+	
+	\subsection{Create a table with the following specifications: frequency, Tx-Power, Tx-Antenna gain, Tx-EIRP, Tx dish diameter, Mod. Scheme, Bandwidth, Max. Distance to ground, Rx-Antenna gain, Rx-dish diameter, G/T of Rx, received power \\}	
+
+		\begin{center}
+			\begin{tabular}{ | l | l | l | p{1.5cm} |}
+				\hline
+				Description & Quantity & Value & Unit \\ \hline
+				Frequency & f  & $8,35*10^{9}$ & Hz \\ \hline
+				Tx-Power & Pt & 25 & W
+				\\ \hline
+				Tx-Antenna gain & Gt & $18.1$ & 
+				\\ \hline
+				Tx-EIRP & EIRP & $4.51*10^{2}$ & W
+				\\ \hline
+				Tx Dish Diameter & D & $8.87*10^{-2}$ & m
+				\\ \hline
+				Mod. Scheme & QPSK &  & 
+				\\ \hline
+				Bandwidth & B & $7.86*10^{4}$ & Hz
+				\\ \hline
+				Max. Distance to Ground & r & $5.60*10^{7}$ & m
+				\\ \hline
+				Rx-Antenna Gain & Gr & $10^{5}$ & 
+				\\ \hline
+				Rx-Dish Diameter & D & 1 & m
+				\\ \hline
+				G/T of Rx & G/T & 22.9 & $K^{-1}$
+				\\ \hline
+				Received Power & Prec & $5.39*10^{-15}$ & W
+				\\ \hline
+				
+						\end{tabular}
+					\end{center}
+				
+\newpage
+\section{Power Budget}
+	\subsection{Estimate the the required solar cell area and the battery capacity}
+	
+		To calculate the battery capacity we will need the power consumption $P_{tot}$ and the time that the satellite is in the shadow $t_{eclipse} = 3 hours$. For the power we have assumed that the platform requires 500 W when it is in the sun and 100 W when it is in the shadow.
+		
+		\begin{equation} \label{eq_cb}
+			CB = \dfrac{P_{tot}}{t_{eclipse}} =
+			\dfrac{P_{psun} +  P_{pshadow} + P_{t} }{t_{eclipse}}=
+			\dfrac{500 +  100 + 25 } {3} = 208.33 \unit{Wh}
+		\end{equation}
+		
+		For the required solar cell area $A_{sol}$ we will need the Irradiance $M_{sol}$ which has a value of $1367 \unit{W/m^{2}}$, the efficiency of the cell $\eta_{cell}$ which we set to 0.15 and the power required by the satellite when it is in the sun $P_{sol}$.
+		
+		To calculate the $P_{sol}$(Equation \ref{eq_psol}) we need to know first the power that it consumes to charge the battery $P_{charging}$, for which we need the period of the elipse $T_{elipse}$, the time on the shadow $t_{eclipse}$ and the efficiency of the battery $\eta_{bat}$, as well as the already calculated battery capacity $CB$.
+		
+		\begin{equation} \label{eq_pcharging}
+			P_{charging} = \dfrac{CB}{\dfrac{T_{elipse}-t_{eclipse}} {\eta{bat}}	} =
+			\dfrac{208.33}{\dfrac{18.5-3}{0.8}	} = 16.80 \unit{W}
+		\end{equation}
+		
+		\begin{equation} \label{eq_psol}
+			P_{sol} = P_{charging} + P_{psun} + P_{t}= 
+			16.80 + 500 + 25= 541.80 \unit{W}
+		\end{equation}
+		
+		Now that we have all the values we can calculate the required solar cell area $A_{sol}$:
+		
+		\begin{equation} \label{eq_asol}
+			A_{sol} = \dfrac{P_{sol}}{M_{sol} \cdot \eta_{cell}}= \dfrac{541.80}{1367 \cdot 0.15}=  2.64 \unit{m^{2}}
+		\end{equation}
+		
+	
+	
+
 
 
 
