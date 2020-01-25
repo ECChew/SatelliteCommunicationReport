@@ -32,6 +32,7 @@ set decimal separator={,\!},
 \usepackage{hyperref}
 \fi
 \usepackage{color}
+\usepackage{minted}
 \hypersetup{%
 colorlinks=true,
 linkcolor=black,
@@ -47,6 +48,7 @@ urlcolor=black}
 \fancyhead[LO]{\bfseries\nouppercase{\rightmark}}
 \setlength{\headheight}{15pt}
 
+\newcommand{\unit}[1]{\ensuremath{\, \mathrm{#1}}}
 \let\headruleORIG\headrule
 \renewcommand{\headrule}{\color{black} \headruleORIG}
 \renewcommand{\headrulewidth}{1.0pt}
@@ -218,14 +220,13 @@ urlcolor=black}
 \begin{minipage}{0.4\textwidth}
   \begin{flushright} \large
     \emph{Supervising professor :} \\
-    Prof. Soren \textit{Peik}\\
+    Prof. Sören \textit{Peik}\\
   \end{flushright}
 \end{minipage}
 
 \vfill
 
-% Bottom of the page
-{\large Version 0.1\\ \today}
+
 
 \end{center}
 \end{titlepage}
@@ -252,28 +253,44 @@ urlcolor=black}
 \chapter{General information}
 \section{Polar Satellite}
 The POLAR satellite is one of the 4 spacecraft launched for the GGS program (Global Geospace Science) which are part of the six spacecraft of the ISTP program (International Solar Terrestrial Physics). \\
-
+\begin{figure}[h]
+	\centering
+	\includegraphics[height=7cm]{polar}
+	\caption{Polar Satellite }
+\end{figure}
 \subsection{Mission and abilities}
 POLAR is able to get multi-wavelength vision from the aurora, it measures the plasma entry to the polar magnetosphere as well as the geomagnetic tail, the flow both ways to the ionosphere and the displacement of energy particles into the ionosphere and the higher atmosphere. \\
 
 \subsection{Orbit}
-POLAR has a $22h$h and $36$ mins polar orbit with an apogee of $57\ 000$ km and a perigee of $11\ 500$ km. It was launched in 1996 to observe the polar magnetosphere and later was used to observe the equatorial inner
+POLAR has a $22h$h and $36$ mins polar orbit with an apogee of $57\ 000$ km and a perigee of $11\ 500$ km. It was launched in 1996 to observe the polar magnetosphere and later was used to observe the equatorial inner. As of $11^{th}$ January $2019$, the two line elements for POLAR (TLE) were :\\
+
+\begin{enumerate}
+	\item POLAR,                  
+	\item 1 23802U 96013A   20007.96347079  .00000245  00000-0  00000+0 0  9998,
+	\item 2 23802  78.7065 252.0668 6485272 288.6366  14.7247  1.29845654114298
+\end{enumerate}
 
 \subsection{Technical properties}
 The POLAR satellite has a propulsion system and it is designed to have a lifetime of between 3 and 5 years and also has redundant subsystems. POLAR has a cylindrical shape with a $2.8$ m diameter base and $1.25$ m in height (plus $1.25$ m more for the despun platforms), it has solar cells to provide power, weights $1\ 250$ Kg and uses $333$ W of power. The spin rate of the satellite is $10$ RPM around and axis almost normal to the orbital plane. It also has long wire spin-plane antennas, spin-plane appendages to support the sensors and internal booms. The satellite has 2 despun gimbaled instrument platforms, and in the Z axes the booms are deployed.\\
 
 The data is stored in tape recorders on-board and sometimes relayed to the Deep Space network at a maximum speed of 600 kbps and 41.6 kbps in average.\\
- magnetosphere.\\
+ magnetosphere.
+ \newpage
 \section{Ground Station}
 Our ground station will be a small city called Bondy in France, our observer location is :
 \begin{enumerate}
 	\item Longitude : $2.478680$
 	\item Latitude : $48.89976$
 \end{enumerate}
-\begin{center}
-	\includegraphics[width=\linewidth]{bondy}
-\end{center}
-\chapter{Obtaining subpoints}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=14cm]{bondy}
+	\caption{Ground stations }
+	\label{Ground Station}
+\end{figure}
+
+Our ground station is located approximately $800$ km away from Bremen.
+\chapter{Tracking our satellite}
 In order to obtain the subpoints of the satellite, we could either use the emphem module or the following formulas : \\
 \underline{Latitude $\varphi$} :
 $$
@@ -283,26 +300,107 @@ $$
 $$
 \lambda = \arctan[\tan(\omega + \nu)\cdot \cos(i)] - \bigg[\frac{\Omega_E}n (E-e\cdot\sin(E) - \frac{\Omega_E}{n}\cdot (E_N - e\cdot\sin(E_n))\bigg]
 $$
-As for the elevation and the azimuth relative to the observer, we can use the following equations  :
-\underline{Elevation $E$} :
-$$
- E = \arccos(\frac rR \sin(\phi))\\
- \cos(\phi) = \cos L \cdot \cos \varphi \cos l + \sin \varphi \sin l
-$$
-\underline{Azimuth $a$} :
-$$
-\sin(a) = \frac{\sin L \cos \varphi}{\sin \phi}
-$$
-For simplicity reasons, we will use the built-in functions for both the subplot and the computing of the elevation and azimuth with respect to the observer.
-\chapter{Tracking the satellite}
-\begin{center}
-	\includegraphics[width=\linewidth]{groundtrack}\\
-	\includegraphics[width=\linewidth]{azimuth}\\
+
+For simplicity reasons, we will use the built-in functions for both the subpoints and the computing of elevation, distance and azimuth with respect to the observer. Those are obtained by the PyEphem package which takes the TLE of the satellite and the ground station longitude and latitude as arguments. The code used is in the Jupyter Notebook.
+
+\newpage
+We can then plot the ground track of the POLAR satellite over 5 days starting on $20^{th}$ December $2019$ :
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{groundtrack}
+	\caption{Ground track of POLAR satellite}
+\end{figure}
+
+The red plot is the actual ground track of the satellite and the ground track becomes green when the satellite becomes visible to the ground station. Our visibility condition is that the elevation is at least $5^\circ$.\\
+
+We can then plot the elevation, the distance and the azimuth of the satellite with respect to the ground station over the observation days. Those are also obtained by using the respective PyEphem built-in functions $alt$, $range$ and $az$. For the elevation, the green area is the part in which the satellite is visible to our observer in accordance to the minimal elevation angle.
+
+\begin{figure}[H]
+	\centering
 	\includegraphics[width=\linewidth]{elevation}
-\end{center}
+	\caption{Elevation of POLAR satellite with regard to the ground station}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{distance}
+	\caption{Distance of POLAR satellite from the ground station}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{azimuth}
+	\caption{Azimuth of POLAR satellite with regard to the ground station}
+\end{figure}
+
+This elevation graph is in accordance with the visible slots on the ground track. When it comes to the distance, it is mainly oscillating between $1\times10^7$ m and $5.6\times 10^7$ m.\\
+
+ The azimuth might look weird at first but it makes sense as the our satellite has a polar orbit with high inclination which then creates such unperiodic function. Moreover, we should keep in mind that those jumps are caused by the fact that the angles are brought back to a $360^\circ$ basis.
+\newpage
+\section{Connection windows}
+\subsection{Largest window}
+As we got the information of the orbit of our satellite and its "behavior" with regards to our ground station, we need to find the connection windows we have and make sure that our satellite have the necessary conditions to send us data. The communication windows during our observed timespan are the following :
+\begin{enumerate}
+	\item Start of window = 2019/12/20 00:00:00\\ End of window = 2019/12/20\\ 06:00:00 Duration = 06:00:00
+	\item Start of window = 2019/12/20 11:30:00\\ End of window = 2019/12/21 03:15:00\\ Duration = 15:45:00
+	\item Start of window = 2019/12/21 06:15:00\\ End of window = 2019/12/21 22:30:00\\ Duration = 16:15:00
+	\item Start of window = 2019/12/22 02:15:00\\ End of window = 2019/12/22 13:15:00\\ Duration = 11:00:00
+	\item Start of window = 2019/12/22 20:30:00\\ End of window = 2019/12/23 07:00:00\\ Duration = 10:30:00
+	\item Start of window = 2019/12/23 13:30:00\\ End of window = 2019/12/24 04:15:00\\ Duration = 14:45:00
+\end{enumerate}
+
+Those windows have been calculated with a large margin as our time resolution was $15$ minutes. We then choose to focus on the largest window which is the $3^{rd}$ one with a duration of approximately $58\ 500$ s.
+\newpage
+\subsection{Ground track on the largest window}
+ We can then plot the ground track of our satellite during that specific window :
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{window}
+	\caption{Ground track during the largest window}
+\end{figure}
+\newpage
+\subsection{Distance, azimuth and Doppler shift on the largest window}
+We can also take a closer look at the distance from the ground station, the elevation, the azimuth and the Doppler shift on that window :
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{windowdist}
+	\caption{Distance during the largest window}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{windowalt}
+	\caption{Elevation during the largest window}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{windowaz}
+	\caption{Azimuth during the largest window}
+\end{figure}
+\subsubsection{Doppler shift}
+The Doppler shift can be obtained by :
+
+$$
+\Delta_f = \frac{fv_r}{c}
+$$
+With :
+\begin{itemize}
+	\item $f$ the frequency of the signal : $8345$ MHz in our case
+	\item $v_r$ the range velocity obtained via PyEphem
+	\item $c$ the speed of light in vacuum $3\times10^8$ m/s
+\end{itemize}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{windowdoppler}
+	\caption{Doppler shift during the largest window}
+\end{figure}
+
+\chapter{Link and Power budgets}
 \section{Link Budget}
 
-	\subsection{Find the required data bit rate $R_{c}$ and symbol rate $R_{a}$ for transmitting the amount of 1000.0 MByte to the ground within one link window.}
+	\subsection{Data bit rate and symbol rate}
 	
 		For the transmission, QPSK (quadrature phase shift keying) modulation is used. The modulation has 4 states so $M=4$ and $m$ can be calculated as $\log_2 M = 2$.
 		
@@ -316,7 +414,7 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 			R_{a}= \dfrac{R_{c}}{m} = \dfrac{136752.14 \unit{Bit/s}}{2}= 68376.07 \unit{symbol/s} 
 		\end{equation}
 	
-	\subsection{Find the required bandwidth for the given modulation scheme and filtering.}	
+	\subsection{Required Bandwidth}	
 	
 		To calculate the bandwidth we will use the following expression:
 		
@@ -336,13 +434,14 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 			B= \dfrac{136752.14}{1.74} = 7.86 \cdot 10^{-4} \unit{Hz}
 		\end{equation}
 	
-	\subsection{Find the required energy per bit per noise $E_{c}=N_{o}$ for a BER of $10^{-6}$ and the corresponding SNR.}
+	\subsection{Required SNR}
 	
 		For the required BER of $10^{-6}$ and a QPSK modulation scheme, we will use the graph in Figure \ref{graf_BER} to obtain the Energy per bit per noise ratio $\left(\dfrac{E_{c}}{N_{o}}\right)$ and we get a value of $\dfrac{E_{c}}{N_{o}}\approx10.5 \unit{dB}$
 	
 		\begin{figure}[h]
+			\centering
 			\includegraphics[width=14cm]{graph_BER}
-			\caption{Bit Error Ratios for diferent Modulation Schemes Reference????}
+			\caption{Bit Error Ratios for different Modulation Schemes }
 			\label{graf_BER}
 		\end{figure}
 	
@@ -352,7 +451,7 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 			SNR = \dfrac{R_{c} \cdot \dfrac{E_{c}} {N_{o}}}{B} = \dfrac{136752.14 \cdot 10.5} {7.86 \cdot 10^{-4}} = 19,51
 		\end{equation}
 		
-	\subsection{Find the total received noise at the antenna of the ground station $N_{i}$ and at the output of the receiver $N_{o}$.}	
+	\subsection{Receiver and noise}	
 		
 		 To calculate the total received noise at the antenna of the ground station $N_{i}$ we can use the following expression: 
 		 
@@ -360,12 +459,13 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 		 	N_{i} = k \cdot T_{a} \cdot B
 		 \end{equation}
 	
-		In which the $k$ is the Bolzmann constant with a value of $ 1.38 \cdot 10^{-23} \unit{J/K}$, $B$ is the previously calculated bandwidth and $T_{a}$ is the antenna noise temperature, which can be found in the graph of Figure \ref{graph_Ta}.
+		In which the $k$ is the Bolzmann constant with a value of $ 1.38 \cdot 10^{-23} \unit{J/K}$, $B$ is the previously calculated bandwidth and $T_{a}$ is the antenna noise temperature, which can be found in the graph of Figure \ref{graph_TA}.
 		
 		\begin{figure}[h]
-			\includegraphics[width=14cm]{graph_Ta}
-			\caption{Antenna noise temperature $T_{a}$ as a function of the Zenith angle and the frecuency. Reference????}
-			\label{graf_Ta}
+			\centering
+			\includegraphics[width=14cm]{graph_TA}
+			\caption{Antenna noise temperature $T_{a}$ as a function of the Zenith angle and the frequency.}
+			\label{graf_TA}
 		\end{figure}
 		
 		
@@ -397,7 +497,7 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 	 		N_{o} = 1.38 \cdot 10^{-23} \cdot \left(30.5 + 169.62 \right) \cdot 7.86 \cdot 10^{4} \cdot 100000 = 2.76 \cdot 10^{-11} \unit{W}
 	 	\end{equation}
 	 		
-	\subsection{Find the required signal power $S_{o}$ for the calculated SNR and bandwidth. Find the required input signal power $S_{i}$ , i.e. the power received by the antenna.}
+	\subsection{Required signal powers}
 	
 		To calculate the required signal power $S_{o}$ we use the following equation:
 	
@@ -411,7 +511,7 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 			S_{i} = \dfrac{S_{0}}{G_{r}}= \dfrac{5,39 \cdot 10^{-10}}{100000} = 5,39 \cdot 10^{-15}  \unit{W}
 		\end{equation}		
 	
-	\subsection{Find the required EIRP of the satellite for the worst case, i.e. satellite elevation is 5$^{\circ}$}
+	\subsection{Required EIRP in worst case scenario}
 	
 		To calculate the EIRP for the worst case scenario with an elevation of 5$^{\circ}$ we can use the following formula:
 		
@@ -422,7 +522,7 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 		\end{split}
 		\end{equation}
 	
-	\subsection{Design a transmitter with 30\% efficiency and a matching dish antenna. What is the	size of the antenna, how much DC power is required for the transmitter.}
+	\subsection{Design a transmitter with 30\% efficiency and a matching dish antenna}
 	
 		Finally we ought to design a transmitter with a 30\% efficiency and its antenna. For the transmitter we set a design value of 25 W. The first thing we have to calculate is the gain of the transmitter $G_{t}$:
 		
@@ -459,7 +559,7 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 			2 \cdot \sqrt{\dfrac{6.18 \cdot 10^{-3}}{\pi}} = 8.87  \unit{m}
 		\end{equation}
 	
-	\subsection{Create a table with the following specifications: frequency, Tx-Power, Tx-Antenna gain, Tx-EIRP, Tx dish diameter, Mod. Scheme, Bandwidth, Max. Distance to ground, Rx-Antenna gain, Rx-dish diameter, G/T of Rx, received power \\}	
+	\section{Summary table}	
 
 		\begin{center}
 			\begin{tabular}{ | l | l | l | p{1.5cm} |}
@@ -494,7 +594,7 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 				
 \newpage
 \section{Power Budget}
-	\subsection{Estimate the the required solar cell area and the battery capacity}
+	\subsection{Battery capacity and solar cell area}
 	
 		To calculate the battery capacity we will need the power consumption $P_{tot}$ and the time that the satellite is in the shadow $t_{eclipse} = 3 hours$. For the power we have assumed that the platform requires 500 W when it is in the sun and 100 W when it is in the shadow.
 		
@@ -545,7 +645,7 @@ For simplicity reasons, we will use the built-in functions for both the subplot 
 
 
 %\include{lexique_an_fr}
-%\listoffigures
+\listoffigures
 
 %\listoftables
 %\nopagebreak
