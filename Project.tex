@@ -33,6 +33,7 @@ set decimal separator={,\!},
 \fi
 \usepackage{color}
 \usepackage{minted}
+\usemintedstyle{pastie}
 \hypersetup{%
 colorlinks=true,
 linkcolor=black,
@@ -206,8 +207,16 @@ urlcolor=black}
 { \huge \bfseries Satellite Communication\\[0.4cm] }
 \rule{\linewidth}{0.5mm} \\[1.cm]
 \begin{center}
-		Project 3 - POLAR Satellite
+		Project 3 - POLAR Satellite\\
+		\vspace*{1cm}
+		\includegraphics[height=5cm]{polar}
+		\vspace*{1cm}
 \end{center}
+
+
+	
+
+
 % Author and supervisor
 \noindent
 \begin{minipage}{0.4\textwidth}
@@ -253,11 +262,7 @@ urlcolor=black}
 \chapter{General information}
 \section{Polar Satellite}
 The POLAR satellite is one of the 4 spacecraft launched for the GGS program (Global Geospace Science) which are part of the six spacecraft of the ISTP program (International Solar Terrestrial Physics). \\
-\begin{figure}[h]
-	\centering
-	\includegraphics[height=7cm]{polar}
-	\caption{Polar Satellite }
-\end{figure}
+
 \subsection{Mission and abilities}
 POLAR is able to get multi-wavelength vision from the aurora, it measures the plasma entry to the polar magnetosphere as well as the geomagnetic tail, the flow both ways to the ionosphere and the displacement of energy particles into the ionosphere and the higher atmosphere. \\
 
@@ -275,7 +280,7 @@ The POLAR satellite has a propulsion system and it is designed to have a lifetim
 
 The data is stored in tape recorders on-board and sometimes relayed to the Deep Space network at a maximum speed of 600 kbps and 41.6 kbps in average.\\
  magnetosphere.
- \newpage
+
 \section{Ground Station}
 Our ground station will be a small city called Bondy in France, our observer location is :
 \begin{enumerate}
@@ -284,7 +289,7 @@ Our ground station will be a small city called Bondy in France, our observer loc
 \end{enumerate}
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=14cm]{bondy}
+	\includegraphics[width=8cm]{bondy}
 	\caption{Ground stations }
 	\label{Ground Station}
 \end{figure}
@@ -301,14 +306,13 @@ $$
 \lambda = \arctan[\tan(\omega + \nu)\cdot \cos(i)] - \bigg[\frac{\Omega_E}n (E-e\cdot\sin(E) - \frac{\Omega_E}{n}\cdot (E_N - e\cdot\sin(E_n))\bigg]
 $$
 
-For simplicity reasons, we will use the built-in functions for both the subpoints and the computing of elevation, distance and azimuth with respect to the observer. Those are obtained by the PyEphem package which takes the TLE of the satellite and the ground station longitude and latitude as arguments. The code used is in the Jupyter Notebook.
+For simplicity reasons, we will use the built-in functions for both the subpoints and the computing of elevation, distance and azimuth with respect to the observer. Those are obtained by the PyEphem package which takes the TLE of the satellite and the ground station longitude and latitude as arguments. The code used is in the appendix.
 
-\newpage
 We can then plot the ground track of the POLAR satellite over 5 days starting on $20^{th}$ December $2019$ :
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{groundtrack}
+	\includegraphics[width=0.9\linewidth]{groundtrack}
 	\caption{Ground track of POLAR satellite}
 \end{figure}
 
@@ -318,19 +322,19 @@ We can then plot the elevation, the distance and the azimuth of the satellite wi
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{elevation}
+	\includegraphics[width=0.6\linewidth]{elevation}
 	\caption{Elevation of POLAR satellite with regard to the ground station}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{distance}
+	\includegraphics[width=0.6\linewidth]{distance}
 	\caption{Distance of POLAR satellite from the ground station}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\linewidth]{azimuth}
+	\includegraphics[width=0.6\linewidth]{azimuth}
 	\caption{Azimuth of POLAR satellite with regard to the ground station}
 \end{figure}
 
@@ -652,5 +656,256 @@ With :
 %\include{annexes}
 
 %\printindex
+\appendix
+\setminted{fontsize=\footnotesize}
+\chapter{Python code}
+\section{Main}
+\begin{minted}{python}
+%pylab inline
+import ephem
+import cartopy.crs as ccrs
+import cartopy
+import requests
+import time
+import matplotlib.dates as mdates
+from matplotlib.dates import DateFormatter
+from bs4 import BeautifulSoup
+#Data
+rE = 6378
+frequency = 8345e6
 
+#Initialize date formatting
+myFormat = DateFormatter('%d %b %H: %M')
+
+#Observer position
+bondy = ephem.Observer()
+bondy.lat = '48.89976'
+bondy.lon = '2.478680'
+
+#POLAR TLE as of 11-01-2020
+TLE = ['POLAR',                  
+'1 23802U 96013A   20007.96347079  .00000245  00000-0  00000+0 0  9998',
+'2 23802  78.7065 252.0668 6485272 288.6366  14.7247  1.29845654114298']
+
+polar = ephem.readtle(*TLE)
+
+polarset = bondy.next_pass(polar)
+
+print('Next Pass: ', ephem.localtime(polarset[0]))
+print("Rise Azimuth : ", polarset[1])
+print("Max Alt Time : ", polarset[2])
+print("Max Alt Elev : ", polarset[3])
+print("Set Time : ", polarset[4])
+print("Set Alt : ", polarset[5])
+polar.compute()
+
+#Ground track
+pslon, pslat = (polar.sublong * 180 / np.pi, polar.sublat * 180 / np.pi) #Get subpoint in degrees
+nPoints = 4 * 24 * 5 # We want to get a point every 15 minutes so 4 * 24 points in a day, over 5 days
+
+#Initialize stocking lists for ground track and visibility
+sLon = np.zeros(nPoints)
+sLat = np.zeros(nPoints)
+sVLon = []
+sVLat = []
+azL = np.ones(nPoints)
+altL = np.ones(nPoints)
+time = np.arange(nPoints)
+
+
+#Using temporary Longitude and Latitude lists to cut off the green plots
+tempLon = []
+tempLat = []
+#Dates
+da = []
+#Distances
+d = []
+
+#Finding possible communication windows
+sWindow = [] #Start of windows
+eWindow= [] #End of windows
+
+#Largest window
+window = [] #Window times
+windowAlt = [] #Altitude to ground station
+windowAz = [] #Azimuth to ground station in degrees
+windowDist = [] #Distance to ground station in km
+windowLon = [] #Longitude in degrees
+windowLat = []#Latiude in degrees
+
+#Doppler shift
+doppler = []
+
+for i in range(nPoints):
+    bondy.date = ephem.date((2019, 12, 20, 0, i * 15, 0))
+    da.append(bondy.date)
+    polar.compute(bondy)
+    sLon[i] = polar.sublong * 180 / np.pi
+    sLat[i] = polar.sublat * 180 / np.pi
+    d.append(polar.range) #Get distance
+    #Visibility 
+    az, alt = (polar.az * 180 / np.pi, polar.alt * 180 / np.pi)
+    azL[i], altL[i] = az, alt
+    visible = alt > 5
+    if visible :
+        if altL[i-1] < 5 :
+            #Finding the communication windows at the same time
+            initWindow = da[i]
+            sWindow.append(initWindow)
+            sVLon.append(tempLon)
+            sVLat.append(tempLat)
+            tempLon = [polar.sublong * 180 / np.pi]
+            tempLat = [polar.sublat * 180 / np.pi]
+        else :
+            tempLon.append(polar.sublong * 180 / np.pi)
+            tempLat.append(polar.sublat * 180 / np.pi)
+    else :
+        if altL[i-1] > 5 :
+            endWindow = da[i-1]
+            eWindow.append(endWindow)
+    if altL[-1] > 5 :
+        sVLon.append(tempLon)
+        sVLat.append(tempLat)
+    vistext = ['--', 'Visible']
+    print('{0:} Azi = {1:5.1f}° Ele = {2:5.1f}° {3:} Dist = {4:5.1f} km'.format(bondy.date, az, alt, vistext[visible], polar.range / 1000))
+    #Concentrating on the largest window
+    if (bondy.date > ephem.Date((2019, 12, 21, 6, 15,0))) and (bondy.date < ephem.Date((2019, 12, 21, 22, 30,0))):
+        doppler.append(frequency * polar.range_velocity / 3e8)
+        window.append(bondy.date)
+        windowAlt.append(alt)
+        windowAz.append(az)
+        windowDist.append(polar.range / 1000)
+        windowLon.append(sLon[i])
+        windowLat.append(sLat[i])
+#Plotting
+plt.figure(figsize(8, 12))
+ax = plt.axes(projection = ccrs.PlateCarree())
+ax.gridlines(color = 'gray')
+ax.set_xlim((-180, 180))
+ax.set_ylim((-90, 90))
+ax.add_feature(cartopy.feature.LAND)
+ax.add_feature(cartopy.feature.OCEAN)
+ax.add_feature(cartopy.feature.RIVERS)
+ax.add_feature(cartopy.feature.COASTLINE)
+ax.add_feature(cartopy.feature.LAKES, alpha = 0.5)
+ax.plot(sLon, sLat, color = 'r', linewidth = 0.5)
+for j in range(len(sVLon)):
+    ax.plot(sVLon[j], sVLat[j], color = 'mediumseagreen', linewidth = 1)
+ax.scatter(bondy.lon * 180 / pi, bondy.lat * 180 / pi, marker = '*', color ='b')
+ax.annotate("Bondy", (bondy.lon * 180 / pi,bondy.lat * 180 / pi))
+plt.savefig("Groundtrack.png")
+\end{minted}
+\subsection{Altitude}
+\begin{minted}{python}
+# Altitude during the whole time span
+minute_formatter = DateFormatter('%M')
+hour_formatter = DateFormatter('%H:%M')
+day_month_formatter = DateFormatter('%d %b %H: %M')
+hours = mdates.HourLocator() 
+
+plt.figure(figsize=(16, 9))
+ax = plt.axes()
+ax.format_xdata = DateFormatter(day_month_formatter)
+ax.xaxis.set_major_formatter(day_month_formatter)
+ax.xaxis.set_minor_locator(hours)
+plt.plot(da, altL)
+plt.fill_between(da, 5, np.maximum(5, altL), color='green', alpha='0.5', label = 'Visible satellite')
+plt.fill_between(da, 5, np.minimum(5, altL), color='red', alpha='0.5', label = 'Not visible')
+plt.grid()
+plt.xlabel("Date")
+plt.ylabel("Elevation in °")
+plt.title('Visibility of the satellite')
+plt.savefig('elevation.png')
+plt.show()
+\end{minted}
+\subsection{Azimuth}
+\begin{minted}{python}
+# Azimuth during the whole time span
+minute_formatter = DateFormatter('%M')
+hour_formatter = DateFormatter('%H:%M')
+day_month_formatter = DateFormatter('%d %b %H: %M')
+hours = mdates.HourLocator() 
+plt.figure(figsize=(16, 9))
+ax = plt.axes()
+ax.format_xdata = DateFormatter(day_month_formatter)
+ax.xaxis.set_major_formatter(day_month_formatter)
+ax.xaxis.set_minor_locator(hours) 
+plt.plot(da, azL)
+plt.xlabel("Date")
+plt.ylabel("Azimuth in °")
+plt.title("Azimuth of the satellite")
+plt.savefig('azimuth.png')
+plt.show()
+\end{minted}
+\section{Largest window}
+\begin{minted}{python}
+#Focusing on the largest window
+def humanize_time(secs):
+    mins, secs = divmod(secs, 60)
+    hours, mins = divmod(mins, 60)
+    return '%02d:%02d:%02d' % (hours, mins, secs)
+
+#Plotting
+plt.figure(figsize(8, 12))
+ax = plt.axes(projection = ccrs.PlateCarree())
+ax.gridlines(color = 'gray')
+ax.set_xlim((0, 105))
+ax.set_ylim((-5, 80))
+ax.add_feature(cartopy.feature.LAND)
+ax.add_feature(cartopy.feature.OCEAN)
+ax.add_feature(cartopy.feature.RIVERS)
+ax.add_feature(cartopy.feature.COASTLINE)
+ax.add_feature(cartopy.feature.LAKES, alpha = 0.5)
+ax.plot(windowLon, windowLat, color = 'g', linewidth = 2)
+ax.scatter(bondy.lon * 180 / pi, bondy.lat * 180 / pi, marker = '*', color ='y')
+ax.annotate("Bondy", (bondy.lon * 180 / pi,bondy.lat * 180 / pi))
+ax.annotate("Start", (windowLon[0], windowLat[0]))
+ax.annotate("End", (windowLon[-1], windowLat[-1]))
+plt.title("Largest window : 2019/12/21 from 06:15:00 to 22:30:00")
+plt.savefig('window.png')
+#Calculations
+print('Connection Windows :')
+durationList = []
+for i in range(len(eWindow)) :
+    duration = (eWindow[i] - sWindow[i])* 24 * 3600
+    durationList.append(duration)
+    duration = humanize_time(duration)
+    print('Window number {0:} Start of window = {1:} End of window = {2:} Duration = {3:}'.format(i+1, sWindow[i], eWindow[i], duration))
+tConnect = max(durationList)
+print("Largest connection time :", tConnect)
+\end{minted}
+\subsection{Elevation, azimuth, distance and doppler shift on the largest window}
+\begin{minted}{python}
+#Altitude on the largest window
+plt.figure(figsize(8, 12))
+plt.plot(window, windowAlt)
+plt.grid()
+plt.xlabel("Date")
+plt.ylabel("Elevation in °")
+plt.title('Visibility of the satellite')
+plt.show()
+#Azimuth on the largest window
+plt.figure(figsize(8, 12))
+plt.plot(window, windowAz)
+plt.grid()
+plt.xlabel("Date")
+plt.ylabel("Azimuth in °")
+plt.title('Azimuth of the satellite')
+plt.show()
+#Distance on the largest window
+plt.figure(figsize(8, 12))
+plt.plot(window, windowDist)
+plt.grid()
+plt.xlabel("Date")
+plt.ylabel("Distance in km")
+plt.title('Distance from Ground Station')
+plt.show()
+#Doppler shift on the largest window
+plt.figure(figsize(8, 12))
+plt.plot(window, doppler)
+plt.xlabel("Date")
+plt.ylabel("Doppler shift in Hz")
+plt.title('Doppler shift')
+plt.show()
+\end{minted}
 \end{document}
