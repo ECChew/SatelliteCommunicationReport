@@ -275,7 +275,7 @@ POLAR has a $22h$h and $36$ mins polar orbit with an apogee of $57\ 000$ km and 
 	\item 2 23802  78.7065 252.0668 6485272 288.6366  14.7247  1.29845654114298
 \end{enumerate}
 
-\subsection{Technical properties}
+\subsection{Technical properties} \label{tecprop}
 The POLAR satellite has a propulsion system and it is designed to have a lifetime of between 3 and 5 years and also has redundant subsystems. POLAR has a cylindrical shape with a $2.8$ m diameter base and $1.25$ m in height (plus $1.25$ m more for the despun platforms), it has solar cells to provide power, weights $1\ 250$ Kg and uses $333$ W of power. The spin rate of the satellite is $10$ RPM around and axis almost normal to the orbital plane. It also has long wire spin-plane antennas, spin-plane appendages to support the sensors and internal booms. The satellite has 2 despun gimbaled instrument platforms, and in the Z axes the booms are deployed.\\
 
 The data is stored in tape recorders on-board and sometimes relayed to the Deep Space network at a maximum speed of 600 kbps and 41.6 kbps in average.\\
@@ -452,7 +452,7 @@ With :
 		Once we have the $\dfrac{E_{c}}{N_{o}}$ we can proceed to calculate the SNR:
 		
 		\begin{equation} \label{eq_snr}
-			SNR = \dfrac{R_{c} \cdot \dfrac{E_{c}} {N_{o}}}{B} = \dfrac{136752.14 \cdot 10.5} {7.86 \cdot 10^{-4}} = 19,51
+			SNR = \dfrac{R_{c} \cdot \dfrac{E_{c}} {N_{o}}}{B} = \dfrac{136752.14 \cdot 10.5} {7.86 \cdot 10^{-4}} = 19.51
 		\end{equation}
 		
 	\subsection{Receiver and noise}	
@@ -506,13 +506,13 @@ With :
 		To calculate the required signal power $S_{o}$ we use the following equation:
 	
 		\begin{equation} \label{eq_so}
-			S_{o} = SNR \cdot N_{0} = 19,51 \cdot 2.76 \cdot 10^{-11} = 5,39 \cdot 10^{-10}  \unit{W}
+			S_{o} = SNR \cdot N_{0} = 19,51 \cdot 2.76 \cdot 10^{-11} = 5.39 \cdot 10^{-10}  \unit{W}
 		\end{equation}
 	
 		And to obtain the input signal power $S_{i}$ we will use the receiver gain that we assume before to be 100000 W (or 60 dB):
 		
 		\begin{equation} \label{eq_si}
-			S_{i} = \dfrac{S_{0}}{G_{r}}= \dfrac{5,39 \cdot 10^{-10}}{100000} = 5,39 \cdot 10^{-15}  \unit{W}
+			S_{i} = \dfrac{S_{0}}{G_{r}}= \dfrac{5.39 \cdot 10^{-10}}{100000} = 5.39 \cdot 10^{-15}  \unit{W}
 		\end{equation}		
 	
 	\subsection{Required EIRP in worst case scenario}
@@ -531,7 +531,7 @@ With :
 		Finally we ought to design a transmitter with a 30\% efficiency and its antenna. For the transmitter we set a design value of 25 W. The first thing we have to calculate is the gain of the transmitter $G_{t}$:
 		
 		\begin{equation} \label{eq_gt}
-			G_{t} = \dfrac{EIRP}{P_{t}}= \dfrac{451.31}{25} = 18.05
+			G_{t} = \dfrac{EIRP}{P_{t}}= \dfrac{451.31}{25} = 18.1
 		\end{equation}
 	
 		Now that we have the gain of the transmitter, we will proceed to define the size of the antenna. For knowing its diameter $D$, we will have to know the phisical area of the antenna $A_{phy}$, and for that the effective area of the antenna $A_{eff}$:
@@ -549,7 +549,7 @@ With :
 		Going back to the Equation \ref{eq_aeff}:
 		
 		\begin{equation} \label{eq_aeff2}
-			A_{eff} = \dfrac{{18.05} \cdot (3.59 \cdot 10^{-2})^{2}} {4 \cdot \pi } =  1.86 \cdot 10^{-3} \unit{m^{2}}
+			A_{eff} = \dfrac{{18.1} \cdot (3.59 \cdot 10^{-2})^{2}} {4 \cdot \pi } =  1.86 \cdot 10^{-3} \unit{m^{2}}
 		\end{equation}
 	
 		\begin{equation} \label{eq_aphy}
@@ -560,7 +560,7 @@ With :
 		
 		\begin{equation} \label{eq_d}
 			D = 2 \cdot \sqrt{\dfrac{A_{phy}}{\pi}} =
-			2 \cdot \sqrt{\dfrac{6.18 \cdot 10^{-3}}{\pi}} = 8.87  \unit{m}
+			2 \cdot \sqrt{\dfrac{6.18 \cdot 10^{-3}}{\pi}} = 8.87  \unit{cm}
 		\end{equation}
 	
 	\section{Summary table}	
@@ -569,7 +569,7 @@ With :
 			\begin{tabular}{ | l | l | l | p{1.5cm} |}
 				\hline
 				Description & Quantity & Value & Unit \\ \hline
-				Frequency & f  & $8,35*10^{9}$ & Hz \\ \hline
+				Frequency & f  & $8.35*10^{9}$ & Hz \\ \hline
 				Tx-Power & Pt & 25 & W
 				\\ \hline
 				Tx-Antenna gain & Gt & $18.1$ & 
@@ -600,12 +600,12 @@ With :
 \section{Power Budget}
 	\subsection{Battery capacity and solar cell area}
 	
-		To calculate the battery capacity we will need the power consumption $P_{tot}$ and the time that the satellite is in the shadow $t_{eclipse} = 3 hours$. For the power we have assumed that the platform requires 500 W when it is in the sun and 100 W when it is in the shadow.
+		To calculate the battery capacity we will need the power consumption $P_{tot}$ and the time that the satellite is in the shadow $t_{eclipse} = 3 hours$. For the power we have set that the platform requires 333 W when it is in the sun, as stated in section \ref{tecprop}, and we assumed 100 W more when it is in the shadow.
 		
 		\begin{equation} \label{eq_cb}
 			CB = \dfrac{P_{tot}}{t_{eclipse}} =
 			\dfrac{P_{psun} +  P_{pshadow} + P_{t} }{t_{eclipse}}=
-			\dfrac{500 +  100 + 25 } {3} = 208.33 \unit{Wh}
+			\dfrac{333 +  100 + 25 } {3} = 152.67 \unit{Wh}
 		\end{equation}
 		
 		For the required solar cell area $A_{sol}$ we will need the Irradiance $M_{sol}$ which has a value of $1367 \unit{W/m^{2}}$, the efficiency of the cell $\eta_{cell}$ which we set to 0.15 and the power required by the satellite when it is in the sun $P_{sol}$.
@@ -614,18 +614,18 @@ With :
 		
 		\begin{equation} \label{eq_pcharging}
 			P_{charging} = \dfrac{CB}{\dfrac{T_{elipse}-t_{eclipse}} {\eta{bat}}	} =
-			\dfrac{208.33}{\dfrac{18.5-3}{0.8}	} = 16.80 \unit{W}
+			\dfrac{152.67}{\dfrac{18.5-3}{0.8}	} = 12.31 \unit{W}
 		\end{equation}
 		
 		\begin{equation} \label{eq_psol}
 			P_{sol} = P_{charging} + P_{psun} + P_{t}= 
-			16.80 + 500 + 25= 541.80 \unit{W}
+			12.31 + 333 + 25= 370.31 \unit{W}
 		\end{equation}
 		
 		Now that we have all the values we can calculate the required solar cell area $A_{sol}$:
 		
 		\begin{equation} \label{eq_asol}
-			A_{sol} = \dfrac{P_{sol}}{M_{sol} \cdot \eta_{cell}}= \dfrac{541.80}{1367 \cdot 0.15}=  2.64 \unit{m^{2}}
+			A_{sol} = \dfrac{P_{sol}}{M_{sol} \cdot \eta_{cell}}= \dfrac{370.31}{1367 \cdot 0.15}=  1.81 \unit{m^{2}}
 		\end{equation}
 		
 	
