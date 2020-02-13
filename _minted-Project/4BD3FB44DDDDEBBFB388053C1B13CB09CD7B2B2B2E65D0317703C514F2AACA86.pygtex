@@ -1,0 +1,36 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Focusing on the largest window}
+\PYG{k}{def} \PYG{n+nf}{humanize\PYGZus{}time}\PYG{p}{(}\PYG{n}{secs}\PYG{p}{):}
+    \PYG{n}{mins}\PYG{p}{,} \PYG{n}{secs} \PYG{o}{=} \PYG{n+nb}{divmod}\PYG{p}{(}\PYG{n}{secs}\PYG{p}{,} \PYG{l+m+mi}{60}\PYG{p}{)}
+    \PYG{n}{hours}\PYG{p}{,} \PYG{n}{mins} \PYG{o}{=} \PYG{n+nb}{divmod}\PYG{p}{(}\PYG{n}{mins}\PYG{p}{,} \PYG{l+m+mi}{60}\PYG{p}{)}
+    \PYG{k}{return} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZpc{}02d}\PYG{l+s+s1}{:}\PYG{l+s+si}{\PYGZpc{}02d}\PYG{l+s+s1}{:}\PYG{l+s+si}{\PYGZpc{}02d}\PYG{l+s+s1}{\PYGZsq{}} \PYG{o}{\PYGZpc{}} \PYG{p}{(}\PYG{n}{hours}\PYG{p}{,} \PYG{n}{mins}\PYG{p}{,} \PYG{n}{secs}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Plotting}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{))}
+\PYG{n}{ax} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{axes}\PYG{p}{(}\PYG{n}{projection} \PYG{o}{=} \PYG{n}{ccrs}\PYG{o}{.}\PYG{n}{PlateCarree}\PYG{p}{())}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{gridlines}\PYG{p}{(}\PYG{n}{color} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}gray\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlim}\PYG{p}{((}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{105}\PYG{p}{))}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylim}\PYG{p}{((}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{80}\PYG{p}{))}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{LAND}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{OCEAN}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{RIVERS}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{COASTLINE}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{LAKES}\PYG{p}{,} \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{windowLon}\PYG{p}{,} \PYG{n}{windowLat}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}g\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lon} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{pi}\PYG{p}{,} \PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lat} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{pi}\PYG{p}{,} \PYG{n}{marker} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}*\PYGZsq{}}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}y\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{annotate}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Bondy\PYGZdq{}}\PYG{p}{,} \PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lon} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{pi}\PYG{p}{,}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lat} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{pi}\PYG{p}{))}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{annotate}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Start\PYGZdq{}}\PYG{p}{,} \PYG{p}{(}\PYG{n}{windowLon}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{windowLat}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{annotate}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}End\PYGZdq{}}\PYG{p}{,} \PYG{p}{(}\PYG{n}{windowLon}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{windowLat}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Largest window : 2019/12/21 from 06:15:00 to 22:30:00\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}window.png\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}Calculations}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Connection Windows :\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{durationList} \PYG{o}{=} \PYG{p}{[]}
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{eWindow}\PYG{p}{))} \PYG{p}{:}
+    \PYG{n}{duration} \PYG{o}{=} \PYG{p}{(}\PYG{n}{eWindow}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{n}{sWindow}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])}\PYG{o}{*} \PYG{l+m+mi}{24} \PYG{o}{*} \PYG{l+m+mi}{3600}
+    \PYG{n}{durationList}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{duration}\PYG{p}{)}
+    \PYG{n}{duration} \PYG{o}{=} \PYG{n}{humanize\PYGZus{}time}\PYG{p}{(}\PYG{n}{duration}\PYG{p}{)}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Window number \PYGZob{}0:\PYGZcb{} Start of window = \PYGZob{}1:\PYGZcb{} End of window = \PYGZob{}2:\PYGZcb{} Duration = \PYGZob{}3:\PYGZcb{}\PYGZsq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{sWindow}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{eWindow}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{duration}\PYG{p}{))}
+\PYG{n}{tConnect} \PYG{o}{=} \PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{durationList}\PYG{p}{)}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Largest connection time :\PYGZdq{}}\PYG{p}{,} \PYG{n}{tConnect}\PYG{p}{)}
+\end{Verbatim}

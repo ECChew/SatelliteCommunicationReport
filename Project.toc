@@ -2,24 +2,30 @@
 \contentsline {chapter}{\numberline {1}General information}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Polar Satellite}{1}{section.1.1}
 \contentsline {subsection}{\numberline {1.1.1}Mission and abilities}{1}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}Orbit}{2}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.2}Orbit}{1}{subsection.1.1.2}
 \contentsline {subsection}{\numberline {1.1.3}Technical properties}{2}{subsection.1.1.3}
-\contentsline {section}{\numberline {1.2}Ground Station}{3}{section.1.2}
-\contentsline {chapter}{\numberline {2}Tracking our satellite}{4}{chapter.2}
-\contentsline {section}{\numberline {2.1}Connection windows}{8}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Largest window}{8}{subsection.2.1.1}
-\contentsline {subsection}{\numberline {2.1.2}Ground track on the largest window}{9}{subsection.2.1.2}
-\contentsline {subsection}{\numberline {2.1.3}Distance, azimuth and Doppler shift on the largest window}{10}{subsection.2.1.3}
-\contentsline {subsubsection}{Doppler shift}{12}{section*.12}
-\contentsline {chapter}{\numberline {3}Link and Power budgets}{14}{chapter.3}
-\contentsline {section}{\numberline {3.1}Link Budget}{14}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}Data bit rate and symbol rate}{14}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Required Bandwidth}{14}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Required SNR}{15}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {3.1.4}Receiver and noise}{16}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}Required signal powers}{17}{subsection.3.1.5}
-\contentsline {subsection}{\numberline {3.1.6}Required EIRP in worst case scenario}{17}{subsection.3.1.6}
-\contentsline {subsection}{\numberline {3.1.7}Design a transmitter with 30\% efficiency and a matching dish antenna}{18}{subsection.3.1.7}
-\contentsline {section}{\numberline {3.2}Summary table}{19}{section.3.2}
-\contentsline {section}{\numberline {3.3}Power Budget}{20}{section.3.3}
-\contentsline {subsection}{\numberline {3.3.1}Battery capacity and solar cell area}{20}{subsection.3.3.1}
+\contentsline {section}{\numberline {1.2}Ground Station}{2}{section.1.2}
+\contentsline {chapter}{\numberline {2}Tracking our satellite}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Connection windows}{6}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Largest window}{6}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Ground track on the largest window}{7}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Distance, azimuth and Doppler shift on the largest window}{8}{subsection.2.1.3}
+\contentsline {subsubsection}{Doppler shift}{10}{section*.11}
+\contentsline {chapter}{\numberline {3}Link and Power budgets}{12}{chapter.3}
+\contentsline {section}{\numberline {3.1}Link Budget}{12}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Data bit rate and symbol rate}{12}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Required Bandwidth}{12}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Required SNR}{13}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Receiver and noise}{14}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}Required signal powers}{15}{subsection.3.1.5}
+\contentsline {subsection}{\numberline {3.1.6}Required EIRP in worst case scenario}{15}{subsection.3.1.6}
+\contentsline {subsection}{\numberline {3.1.7}Design a transmitter with 30\% efficiency and a matching dish antenna}{16}{subsection.3.1.7}
+\contentsline {section}{\numberline {3.2}Summary table}{17}{section.3.2}
+\contentsline {section}{\numberline {3.3}Power Budget}{18}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Battery capacity and solar cell area}{18}{subsection.3.3.1}
+\contentsline {chapter}{\numberline {A}Python code}{20}{appendix.A}
+\contentsline {section}{\numberline {A.1}Main}{20}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Altitude}{23}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Azimuth}{23}{subsection.A.1.2}
+\contentsline {section}{\numberline {A.2}Largest window}{24}{section.A.2}
+\contentsline {subsection}{\numberline {A.2.1}Elevation, azimuth, distance and doppler shift on the largest window}{24}{subsection.A.2.1}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.9)  25 JAN 2020 02:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (MiKTeX 2.9.6840 64-bit) (preloaded format=pdflatex 2018.12.9)  13 FEB 2020 08:50
 entering extended mode
 **./Project.tex
 (Project.tex
@@ -953,7 +953,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 runsystem(if not exist _minted-Project mkdir _minted-Project)...executed.
 
-Package hyperref Info: Option `colorlinks' set `true' on input line 40.
+Package hyperref Info: Option `colorlinks' set `true' on input line 41.
 
 (D:\Miktex\tex\latex\fancyhdr\fancyhdr.sty
 Package: fancyhdr 2017/06/30 v3.9a Extensive control of page headers and footer
@@ -970,11 +970,11 @@ s
 )
 
 Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 46.
+less on input line 47.
 
 
 Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 47.
+less on input line 48.
 
 (D:\Miktex\tex\latex\colortbl\colortbl.sty
 Package: colortbl 2018/12/12 v1.0d Color table columns (DPC)
@@ -1349,7 +1349,7 @@ Package: glossary-tree 2019/01/06 v4.42 (NLCT)
 \glo@main@file=\write8
 \openout8 = `Project.glo'.
 
-Package glossaries Info: Writing glossary file Project.glo on input line 182.
+Package glossaries Info: Writing glossary file Project.glo on input line 183.
 runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > Pr
 oject.aex <nul: /p x=^%~$PATH:i>> Project.aex)...executed.
 
@@ -1363,27 +1363,27 @@ LaTeX Warning: Unused global option(s):
 (Project.aux)
 \openout1 = `Project.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 188.
-LaTeX Font Info:    ... okay on input line 188.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 188.
-LaTeX Font Info:    ... okay on input line 188.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 188.
-LaTeX Font Info:    ... okay on input line 188.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 188.
-LaTeX Font Info:    ... okay on input line 188.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 188.
-LaTeX Font Info:    ... okay on input line 188.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 188.
-LaTeX Font Info:    ... okay on input line 188.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 188.
-LaTeX Font Info:    ... okay on input line 188.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 188.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 188.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 189.
+LaTeX Font Info:    ... okay on input line 189.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 189.
+LaTeX Font Info:    ... okay on input line 189.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 189.
+LaTeX Font Info:    ... okay on input line 189.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 189.
+LaTeX Font Info:    ... okay on input line 189.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 189.
+LaTeX Font Info:    ... okay on input line 189.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 189.
+LaTeX Font Info:    ... okay on input line 189.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 189.
+LaTeX Font Info:    ... okay on input line 189.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 189.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 189.
 
  (D:\Miktex\tex\latex\base\ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 188.
+LaTeX Font Info:    ... okay on input line 189.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1463,7 +1463,7 @@ Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.16}).
 
 \AtBeginShipoutBox=\box80
-Package hyperref Info: Link coloring ON on input line 188.
+Package hyperref Info: Link coloring ON on input line 189.
 (D:\Miktex\tex\latex\hyperref\nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -1472,31 +1472,36 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count294
 )
-LaTeX Info: Redefining \ref on input line 188.
-LaTeX Info: Redefining \pageref on input line 188.
-LaTeX Info: Redefining \nameref on input line 188.
+LaTeX Info: Redefining \ref on input line 189.
+LaTeX Info: Redefining \pageref on input line 189.
+LaTeX Info: Redefining \nameref on input line 189.
  (Project.out) (Project.out)
 \@outlinefile=\write9
 \openout9 = `Project.out'.
 
-<logohsb.png, id=98, 200.75pt x 93.34875pt>
+<logohsb.png, id=122, 200.75pt x 93.34875pt>
 File: logohsb.png Graphic file (type png)
 <use logohsb.png>
-Package pdftex.def Info: logohsb.png  used on input line 198.
+Package pdftex.def Info: logohsb.png  used on input line 199.
 (pdftex.def)             Requested size: 276.43555pt x 128.56215pt.
-LaTeX Font Info:    Try loading font information for U+msa on input line 219.
+<polar.png, id=124, 469.755pt x 579.16376pt>
+File: polar.png Graphic file (type png)
+<use polar.png>
+Package pdftex.def Info: polar.png  used on input line 212.
+(pdftex.def)             Requested size: 115.38844pt x 142.26378pt.
+LaTeX Font Info:    Try loading font information for U+msa on input line 228.
  (D:\Miktex\tex\latex\amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 219.
+LaTeX Font Info:    Try loading font information for U+msb on input line 228.
  (D:\Miktex\tex\latex\amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+wasy on input line 219.
+LaTeX Font Info:    Try loading font information for U+wasy on input line 228.
 (D:\Miktex\tex\latex\wasysym\uwasy.fd
 File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
 )
-LaTeX Font Info:    Try loading font information for OMS+rsfs on input line 219
+LaTeX Font Info:    Try loading font information for OMS+rsfs on input line 228
 .
  (D:\Miktex\tex\latex\calrsfs\omsrsfs.fd) [1
 
@@ -1504,22 +1509,32 @@ LaTeX Font Info:    Try loading font information for OMS+rsfs on input line 219
 
 
 {C:/Users/Huynh/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./logohsb.p
-ng>] (Project.toc)
+ng> <./polar.png>] (Project.toc)
 \tf@toc=\write10
 \openout10 = `Project.toc'.
 
  [1
 
 
-]
+] [2]
 Chapter 1.
-<polar.png, id=140, 469.755pt x 579.16376pt>
-File: polar.png Graphic file (type png)
-<use polar.png>
-Package pdftex.def Info: polar.png  used on input line 258.
-(pdftex.def)             Requested size: 161.54239pt x 199.16928pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 262--263
+Underfull \hbox (badness 10000) in paragraph at lines 264--265
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 267--268
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 270--271
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 279--280
 
  []
 
@@ -1527,183 +1542,217 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.263 
+l.280 
        [1
 
 
- <./polar.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 265--266
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 274--275
-
- []
-
-[2]
-<bondy.png, id=158, 676.929pt x 519.1395pt>
+]
+<bondy.png, id=187, 676.929pt x 519.1395pt>
 File: bondy.png Graphic file (type png)
 <use bondy.png>
-Package pdftex.def Info: bondy.png  used on input line 287.
-(pdftex.def)             Requested size: 398.33858pt x 305.48958pt.
- [3 <./bondy.png>]
+Package pdftex.def Info: bondy.png  used on input line 292.
+(pdftex.def)             Requested size: 227.62204pt x 174.56433pt.
+ [2 <./bondy.png>]
 Chapter 2.
-[4
-
-]
-<groundtrack.png, id=173, 272.81924pt x 141.52875pt>
+<groundtrack.png, id=196, 272.81924pt x 141.52875pt>
 File: groundtrack.png Graphic file (type png)
 <use groundtrack.png>
-Package pdftex.def Info: groundtrack.png  used on input line 311.
-(pdftex.def)             Requested size: 460.72124pt x 239.01056pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 315--316
-
- []
-
-<elevation.png, id=174, 1156.32pt x 650.43pt>
-File: elevation.png Graphic file (type png)
-<use elevation.png>
-Package pdftex.def Info: elevation.png  used on input line 321.
-(pdftex.def)             Requested size: 460.72124pt x 259.15506pt.
+Package pdftex.def Info: groundtrack.png  used on input line 315.
+(pdftex.def)             Requested size: 414.6463pt x 215.10649pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [5 <./groundtrack.png>]
-<distance.png, id=183, 1156.32pt x 650.43pt>
-File: distance.png Graphic file (type png)
-<use distance.png>
-Package pdftex.def Info: distance.png  used on input line 327.
-(pdftex.def)             Requested size: 460.72124pt x 259.15506pt.
-<azimuth.png, id=184, 1156.32pt x 650.43pt>
-File: azimuth.png Graphic file (type png)
-<use azimuth.png>
-Package pdftex.def Info: azimuth.png  used on input line 333.
-(pdftex.def)             Requested size: 460.72124pt x 259.15506pt.
-
-Underfull \vbox (badness 2057) has occurred while \output is active []
-
- [6 <./elevation.png> <./distance.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 337--338
-
- []
-
-[7 <./azimuth.png>] [8]
-<window.png, id=210, 275.22826pt x 235.47975pt>
-File: window.png Graphic file (type png)
-<use window.png>
-Package pdftex.def Info: window.png  used on input line 360.
-(pdftex.def)             Requested size: 460.72124pt x 394.19476pt.
- [9 <./window.png>]
-<windowdist.png, id=217, 578.16pt x 867.24pt>
-File: windowdist.png Graphic file (type png)
-<use windowdist.png>
-Package pdftex.def Info: windowdist.png  used on input line 369.
-(pdftex.def)             Requested size: 322.50345pt x 483.74554pt.
-<windowalt.png, id=218, 578.16pt x 867.24pt>
-File: windowalt.png Graphic file (type png)
-<use windowalt.png>
-Package pdftex.def Info: windowalt.png  used on input line 374.
-(pdftex.def)             Requested size: 322.50345pt x 483.74554pt.
-<windowaz.png, id=219, 578.16pt x 867.24pt>
-File: windowaz.png Graphic file (type png)
-<use windowaz.png>
-Package pdftex.def Info: windowaz.png  used on input line 379.
-(pdftex.def)             Requested size: 322.50345pt x 483.74554pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [10 <./windowdist.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [11 <./windowalt.png>] [12 <./windowaz.png>]
-<windowdoppler.png, id=240, 578.16pt x 867.24pt>
-File: windowdoppler.png Graphic file (type png)
-<use windowdoppler.png>
-Package pdftex.def Info: windowdoppler.png  used on input line 396.
-(pdftex.def)             Requested size: 276.43555pt x 414.64282pt.
- [13 <./windowdoppler.png>]
-Chapter 3.
-[14
+ [3
 
 ]
-<graph_BER.png, id=259, 307.74976pt x 293.898pt>
+Underfull \hbox (badness 10000) in paragraph at lines 319--320
+
+ []
+
+<elevation.png, id=203, 1156.32pt x 650.43pt>
+File: elevation.png Graphic file (type png)
+<use elevation.png>
+Package pdftex.def Info: elevation.png  used on input line 325.
+(pdftex.def)             Requested size: 276.43555pt x 155.49104pt.
+<distance.png, id=204, 1156.32pt x 650.43pt>
+File: distance.png Graphic file (type png)
+<use distance.png>
+Package pdftex.def Info: distance.png  used on input line 331.
+(pdftex.def)             Requested size: 276.43555pt x 155.49104pt.
+
+Underfull \vbox (badness 2707) has occurred while \output is active []
+
+ [4 <./groundtrack.png> <./elevation.png>]
+<azimuth.png, id=215, 1156.32pt x 650.43pt>
+File: azimuth.png Graphic file (type png)
+<use azimuth.png>
+Package pdftex.def Info: azimuth.png  used on input line 337.
+(pdftex.def)             Requested size: 276.43555pt x 155.49104pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 341--342
+
+ []
+
+[5 <./distance.png> <./azimuth.png>] [6]
+<window.png, id=235, 275.22826pt x 235.47975pt>
+File: window.png Graphic file (type png)
+<use window.png>
+Package pdftex.def Info: window.png  used on input line 364.
+(pdftex.def)             Requested size: 460.72124pt x 394.19476pt.
+ [7 <./window.png>]
+<windowdist.png, id=242, 578.16pt x 867.24pt>
+File: windowdist.png Graphic file (type png)
+<use windowdist.png>
+Package pdftex.def Info: windowdist.png  used on input line 373.
+(pdftex.def)             Requested size: 322.50345pt x 483.74554pt.
+<windowalt.png, id=243, 578.16pt x 867.24pt>
+File: windowalt.png Graphic file (type png)
+<use windowalt.png>
+Package pdftex.def Info: windowalt.png  used on input line 378.
+(pdftex.def)             Requested size: 322.50345pt x 483.74554pt.
+<windowaz.png, id=244, 578.16pt x 867.24pt>
+File: windowaz.png Graphic file (type png)
+<use windowaz.png>
+Package pdftex.def Info: windowaz.png  used on input line 383.
+(pdftex.def)             Requested size: 322.50345pt x 483.74554pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8 <./windowdist.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [9 <./windowalt.png>] [10 <./windowaz.png>]
+<windowdoppler.png, id=265, 578.16pt x 867.24pt>
+File: windowdoppler.png Graphic file (type png)
+<use windowdoppler.png>
+Package pdftex.def Info: windowdoppler.png  used on input line 400.
+(pdftex.def)             Requested size: 276.43555pt x 414.64282pt.
+ [11 <./windowdoppler.png>]
+Chapter 3.
+[12
+
+]
+<graph_BER.png, id=284, 307.74976pt x 293.898pt>
 File: graph_BER.png Graphic file (type png)
 <use graph_BER.png>
-Package pdftex.def Info: graph_BER.png  used on input line 443.
+Package pdftex.def Info: graph_BER.png  used on input line 447.
 (pdftex.def)             Requested size: 398.33858pt x 380.44394pt.
 
 Underfull \vbox (badness 1102) has occurred while \output is active []
 
- [15 <./graph_BER.png>]
-
-LaTeX Warning: Reference `graph_TA' on page 16 undefined on input line 462.
-
-<graph_TA.png, id=267, 277.035pt x 219.219pt>
+ [13 <./graph_BER.png>]
+<graph_TA.png, id=293, 277.035pt x 219.219pt>
 File: graph_TA.png Graphic file (type png)
 <use graph_TA.png>
-Package pdftex.def Info: graph_TA.png  used on input line 466.
+Package pdftex.def Info: graph_TA.png  used on input line 470.
 (pdftex.def)             Requested size: 398.33858pt x 315.21013pt.
-[16 <./graph_TA.png>]
+ [14 <./graph_TA.png>]
 Underfull \vbox (badness 1762) has occurred while \output is active []
 
- [17]
+ [15]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [18]
-[19] [20] (Project.lof)
+ [16]
+[17] [18] (Project.lof)
 \tf@lof=\write11
 \openout11 = `Project.lof'.
 
+ [19
 
+]
+Appendix A.
+\openout4 = `Project.pyg'.
+
+(_minted-Project/default-pyg-prefix.pygstyle) (_minted-Project/pastie.pygstyle)
+
+(_minted-Project/421B2EADC597CD9F8ACCBC4192FDED5CCD7B2B2B2E65D0317703C514F2AACA
+86.pygtex
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 1.
+ (D:\Miktex\tex\latex\base\t1cmtt.fd
+File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
+(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 3.
+LaTeX Font Info:    Try loading font information for TS1+cmtt on input line 16.
+
+
+(D:\Miktex\tex\latex\base\ts1cmtt.fd
+File: ts1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) [20
+
+]
+Underfull \vbox (badness 7379) has occurred while \output is active []
+
+ [21]
+Underfull \vbox (badness 7379) has occurred while \output is active []
+
+ [22])
+\openout4 = `Project.pyg'.
+
+
+(_minted-Project/28637E6248742F9853B8898A9719CE04CD7B2B2B2E65D0317703C514F2AACA
+86.pygtex)
+\openout4 = `Project.pyg'.
+
+
+(_minted-Project/B674941C8D4C53B0DE4E99E5C9E3323ACD7B2B2B2E65D0317703C514F2AACA
+86.pygtex)
+\openout4 = `Project.pyg'.
+
+
+(_minted-Project/4BD3FB44DDDDEBBFB388053C1B13CB09CD7B2B2B2E65D0317703C514F2AACA
+86.pygtex [23])
+\openout4 = `Project.pyg'.
+
+
+(_minted-Project/54B5F712AC9B7EA440BAE8576AFC51AFCD7B2B2B2E65D0317703C514F2AACA
+86.pygtex [24])
 
 Package glossaries Warning: No \printglossary or \printglossaries found. 
 (Remove \makeglossaries if you don't want any glossaries.) 
 This document will not have a glossary.
 
-[21
-
-]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 656.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 656.
+[25]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 911.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 911.
  (Project.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 656.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 656.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 911.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 911.
 Package rerunfilecheck Info: File `Project.out' has not changed.
-(rerunfilecheck)             Checksum: 32B455701F72138E9CA28E55E9069B20;1699.
+(rerunfilecheck)             Checksum: E8A5EAE10F42E42A9F7B18B2B17EAB97;2112.
+runsystem(del Project.pyg)...executed.
 
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 656.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 911.
  ) 
 Here is how much of TeX's memory you used:
- 41137 strings out of 492970
- 921033 string characters out of 3143823
- 1236406 words of memory out of 3000000
- 44093 multiletter control sequences out of 15000+200000
- 20780 words of font info for 60 fonts, out of 3000000 for 9000
+ 41422 strings out of 492970
+ 926985 string characters out of 3143823
+ 1236882 words of memory out of 3000000
+ 44334 multiletter control sequences out of 15000+200000
+ 22153 words of font info for 63 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 78i,17n,136p,1990b,609s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 78i,17n,136p,1990b,713s stack positions out of 5000i,500n,10000p,200000b,50000s
  <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\
-tcrm1200.pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\
-ec\dpi600\ecbx1440.pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
-\jknappen\ec\dpi600\ecbx1728.pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts
-\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk> <C:\Users\Huynh\AppData\Local\MiKTeX
-\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbi1440.pk> <C:\Users\Huynh\AppData\Lo
-cal\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1440.pk> <C:\Users\Huynh\
-AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecti1440.pk> <C:\Us
-ers\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.
+tctt1000.pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\
+ec\dpi600\ectt1000.pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour
+\jknappen\ec\dpi600\tcrm1200.pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts
+\pk\ljfour\jknappen\ec\dpi600\ecbx1440.pk> <C:\Users\Huynh\AppData\Local\MiKTeX
+\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1728.pk> <C:\Users\Huynh\AppData\Lo
+cal\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbx1200.pk> <C:\Users\Huynh\
+AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecbi1440.pk> <C:\Us
+ers\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1440.
 pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600
-\ecbx2488.pk><D:/Miktex/fonts/type1/public/amsfonts/cm/cmex10.pfb><D:/Miktex/fo
-nts/type1/public/amsfonts/cm/cmmi12.pfb><D:/Miktex/fonts/type1/public/amsfonts/
-cm/cmmi8.pfb><D:/Miktex/fonts/type1/public/amsfonts/cm/cmr12.pfb><D:/Miktex/fon
-ts/type1/public/amsfonts/cm/cmr8.pfb><D:/Miktex/fonts/type1/public/amsfonts/cm/
-cmsy10.pfb><D:/Miktex/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on Project.pdf (23 pages, 1994296 bytes).
+\ecti1440.pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen
+\ec\dpi600\ecrm1200.pk> <C:\Users\Huynh\AppData\Local\MiKTeX\2.9\fonts\pk\ljfou
+r\jknappen\ec\dpi600\ecbx2488.pk><D:/Miktex/fonts/type1/public/amsfonts/cm/cmex
+10.pfb><D:/Miktex/fonts/type1/public/amsfonts/cm/cmmi12.pfb><D:/Miktex/fonts/ty
+pe1/public/amsfonts/cm/cmmi8.pfb><D:/Miktex/fonts/type1/public/amsfonts/cm/cmr1
+2.pfb><D:/Miktex/fonts/type1/public/amsfonts/cm/cmr8.pfb><D:/Miktex/fonts/type1
+/public/amsfonts/cm/cmsy10.pfb><D:/Miktex/fonts/type1/public/amsfonts/cm/cmsy8.
+pfb>
+Output written on Project.pdf (28 pages, 2038205 bytes).
 PDF statistics:
- 675 PDF objects out of 1000 (max. 8388607)
- 97 named destinations out of 1000 (max. 500000)
- 267 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 822 PDF objects out of 1000 (max. 8388607)
+ 107 named destinations out of 1000 (max. 500000)
+ 315 words of extra memory for PDF output out of 10000 (max. 10000000)
 

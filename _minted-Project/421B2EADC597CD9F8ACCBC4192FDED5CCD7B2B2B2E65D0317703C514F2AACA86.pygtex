@@ -1,0 +1,135 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{o}{\PYGZpc{}}\PYG{n}{pylab} \PYG{n}{inline}
+\PYG{k+kn}{import} \PYG{n+nn}{ephem}
+\PYG{k+kn}{import} \PYG{n+nn}{cartopy.crs} \PYG{k+kn}{as} \PYG{n+nn}{ccrs}
+\PYG{k+kn}{import} \PYG{n+nn}{cartopy}
+\PYG{k+kn}{import} \PYG{n+nn}{requests}
+\PYG{k+kn}{import} \PYG{n+nn}{time}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.dates} \PYG{k+kn}{as} \PYG{n+nn}{mdates}
+\PYG{k+kn}{from} \PYG{n+nn}{matplotlib.dates} \PYG{k+kn}{import} \PYG{n}{DateFormatter}
+\PYG{k+kn}{from} \PYG{n+nn}{bs4} \PYG{k+kn}{import} \PYG{n}{BeautifulSoup}
+\PYG{c+c1}{\PYGZsh{}Data}
+\PYG{n}{rE} \PYG{o}{=} \PYG{l+m+mi}{6378}
+\PYG{n}{frequency} \PYG{o}{=} \PYG{l+m+mf}{8345e6}
+
+\PYG{c+c1}{\PYGZsh{}Initialize date formatting}
+\PYG{n}{myFormat} \PYG{o}{=} \PYG{n}{DateFormatter}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZpc{}d}\PYG{l+s+s1}{ \PYGZpc{}b \PYGZpc{}H: \PYGZpc{}M\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Observer position}
+\PYG{n}{bondy} \PYG{o}{=} \PYG{n}{ephem}\PYG{o}{.}\PYG{n}{Observer}\PYG{p}{()}
+\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lat} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}48.89976\PYGZsq{}}
+\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lon} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}2.478680\PYGZsq{}}
+
+\PYG{c+c1}{\PYGZsh{}POLAR TLE as of 11\PYGZhy{}01\PYGZhy{}2020}
+\PYG{n}{TLE} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}POLAR\PYGZsq{}}\PYG{p}{,}
+\PYG{l+s+s1}{\PYGZsq{}1 23802U 96013A   20007.96347079  .00000245  00000\PYGZhy{}0  00000+0 0  9998\PYGZsq{}}\PYG{p}{,}
+\PYG{l+s+s1}{\PYGZsq{}2 23802  78.7065 252.0668 6485272 288.6366  14.7247  1.29845654114298\PYGZsq{}}\PYG{p}{]}
+
+\PYG{n}{polar} \PYG{o}{=} \PYG{n}{ephem}\PYG{o}{.}\PYG{n}{readtle}\PYG{p}{(}\PYG{o}{*}\PYG{n}{TLE}\PYG{p}{)}
+
+\PYG{n}{polarset} \PYG{o}{=} \PYG{n}{bondy}\PYG{o}{.}\PYG{n}{next\PYGZus{}pass}\PYG{p}{(}\PYG{n}{polar}\PYG{p}{)}
+
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Next Pass: \PYGZsq{}}\PYG{p}{,} \PYG{n}{ephem}\PYG{o}{.}\PYG{n}{localtime}\PYG{p}{(}\PYG{n}{polarset}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]))}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Rise Azimuth : \PYGZdq{}}\PYG{p}{,} \PYG{n}{polarset}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Max Alt Time : \PYGZdq{}}\PYG{p}{,} \PYG{n}{polarset}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Max Alt Elev : \PYGZdq{}}\PYG{p}{,} \PYG{n}{polarset}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Set Time : \PYGZdq{}}\PYG{p}{,} \PYG{n}{polarset}\PYG{p}{[}\PYG{l+m+mi}{4}\PYG{p}{])}
+\PYG{k}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Set Alt : \PYGZdq{}}\PYG{p}{,} \PYG{n}{polarset}\PYG{p}{[}\PYG{l+m+mi}{5}\PYG{p}{])}
+\PYG{n}{polar}\PYG{o}{.}\PYG{n}{compute}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{}Ground track}
+\PYG{n}{pslon}\PYG{p}{,} \PYG{n}{pslat} \PYG{o}{=} \PYG{p}{(}\PYG{n}{polar}\PYG{o}{.}\PYG{n}{sublong} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{,} \PYG{n}{polar}\PYG{o}{.}\PYG{n}{sublat} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{}Get subpoint in degrees}
+\PYG{n}{nPoints} \PYG{o}{=} \PYG{l+m+mi}{4} \PYG{o}{*} \PYG{l+m+mi}{24} \PYG{o}{*} \PYG{l+m+mi}{5} \PYG{c+c1}{\PYGZsh{} We want to get a point every 15 minutes so 4 * 24 points in a day, over 5 days}
+
+\PYG{c+c1}{\PYGZsh{}Initialize stocking lists for ground track and visibility}
+\PYG{n}{sLon} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{nPoints}\PYG{p}{)}
+\PYG{n}{sLat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{zeros}\PYG{p}{(}\PYG{n}{nPoints}\PYG{p}{)}
+\PYG{n}{sVLon} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{sVLat} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{azL} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{nPoints}\PYG{p}{)}
+\PYG{n}{altL} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{ones}\PYG{p}{(}\PYG{n}{nPoints}\PYG{p}{)}
+\PYG{n}{time} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{nPoints}\PYG{p}{)}
+
+
+\PYG{c+c1}{\PYGZsh{}Using temporary Longitude and Latitude lists to cut off the green plots}
+\PYG{n}{tempLon} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{tempLat} \PYG{o}{=} \PYG{p}{[]}
+\PYG{c+c1}{\PYGZsh{}Dates}
+\PYG{n}{da} \PYG{o}{=} \PYG{p}{[]}
+\PYG{c+c1}{\PYGZsh{}Distances}
+\PYG{n}{d} \PYG{o}{=} \PYG{p}{[]}
+
+\PYG{c+c1}{\PYGZsh{}Finding possible communication windows}
+\PYG{n}{sWindow} \PYG{o}{=} \PYG{p}{[]} \PYG{c+c1}{\PYGZsh{}Start of windows}
+\PYG{n}{eWindow}\PYG{o}{=} \PYG{p}{[]} \PYG{c+c1}{\PYGZsh{}End of windows}
+
+\PYG{c+c1}{\PYGZsh{}Largest window}
+\PYG{n}{window} \PYG{o}{=} \PYG{p}{[]} \PYG{c+c1}{\PYGZsh{}Window times}
+\PYG{n}{windowAlt} \PYG{o}{=} \PYG{p}{[]} \PYG{c+c1}{\PYGZsh{}Altitude to ground station}
+\PYG{n}{windowAz} \PYG{o}{=} \PYG{p}{[]} \PYG{c+c1}{\PYGZsh{}Azimuth to ground station in degrees}
+\PYG{n}{windowDist} \PYG{o}{=} \PYG{p}{[]} \PYG{c+c1}{\PYGZsh{}Distance to ground station in km}
+\PYG{n}{windowLon} \PYG{o}{=} \PYG{p}{[]} \PYG{c+c1}{\PYGZsh{}Longitude in degrees}
+\PYG{n}{windowLat} \PYG{o}{=} \PYG{p}{[]}\PYG{c+c1}{\PYGZsh{}Latiude in degrees}
+
+\PYG{c+c1}{\PYGZsh{}Doppler shift}
+\PYG{n}{doppler} \PYG{o}{=} \PYG{p}{[]}
+
+\PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{nPoints}\PYG{p}{):}
+    \PYG{n}{bondy}\PYG{o}{.}\PYG{n}{date} \PYG{o}{=} \PYG{n}{ephem}\PYG{o}{.}\PYG{n}{date}\PYG{p}{((}\PYG{l+m+mi}{2019}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{20}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{i} \PYG{o}{*} \PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{))}
+    \PYG{n}{da}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{date}\PYG{p}{)}
+    \PYG{n}{polar}\PYG{o}{.}\PYG{n}{compute}\PYG{p}{(}\PYG{n}{bondy}\PYG{p}{)}
+    \PYG{n}{sLon}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{polar}\PYG{o}{.}\PYG{n}{sublong} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}
+    \PYG{n}{sLat}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{polar}\PYG{o}{.}\PYG{n}{sublat} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}
+    \PYG{n}{d}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{polar}\PYG{o}{.}\PYG{n}{range}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{}Get distance}
+    \PYG{c+c1}{\PYGZsh{}Visibility}
+    \PYG{n}{az}\PYG{p}{,} \PYG{n}{alt} \PYG{o}{=} \PYG{p}{(}\PYG{n}{polar}\PYG{o}{.}\PYG{n}{az} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{,} \PYG{n}{polar}\PYG{o}{.}\PYG{n}{alt} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{)}
+    \PYG{n}{azL}\PYG{p}{[}\PYG{n}{i}\PYG{p}{],} \PYG{n}{altL}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{=} \PYG{n}{az}\PYG{p}{,} \PYG{n}{alt}
+    \PYG{n}{visible} \PYG{o}{=} \PYG{n}{alt} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{5}
+    \PYG{k}{if} \PYG{n}{visible} \PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{altL}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{5} \PYG{p}{:}
+            \PYG{c+c1}{\PYGZsh{}Finding the communication windows at the same time}
+            \PYG{n}{initWindow} \PYG{o}{=} \PYG{n}{da}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+            \PYG{n}{sWindow}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{initWindow}\PYG{p}{)}
+            \PYG{n}{sVLon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tempLon}\PYG{p}{)}
+            \PYG{n}{sVLat}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tempLat}\PYG{p}{)}
+            \PYG{n}{tempLon} \PYG{o}{=} \PYG{p}{[}\PYG{n}{polar}\PYG{o}{.}\PYG{n}{sublong} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{]}
+            \PYG{n}{tempLat} \PYG{o}{=} \PYG{p}{[}\PYG{n}{polar}\PYG{o}{.}\PYG{n}{sublat} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{]}
+        \PYG{k}{else} \PYG{p}{:}
+            \PYG{n}{tempLon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{polar}\PYG{o}{.}\PYG{n}{sublong} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{)}
+            \PYG{n}{tempLat}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{polar}\PYG{o}{.}\PYG{n}{sublat} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{pi}\PYG{p}{)}
+    \PYG{k}{else} \PYG{p}{:}
+        \PYG{k}{if} \PYG{n}{altL}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{5} \PYG{p}{:}
+            \PYG{n}{endWindow} \PYG{o}{=} \PYG{n}{da}\PYG{p}{[}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+            \PYG{n}{eWindow}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{endWindow}\PYG{p}{)}
+    \PYG{k}{if} \PYG{n}{altL}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{5} \PYG{p}{:}
+        \PYG{n}{sVLon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tempLon}\PYG{p}{)}
+        \PYG{n}{sVLat}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{tempLat}\PYG{p}{)}
+    \PYG{n}{vistext} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Visible\PYGZsq{}}\PYG{p}{]}
+    \PYG{k}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZob{}0:\PYGZcb{} Azi = \PYGZob{}1:5.1f\PYGZcb{}° Ele = \PYGZob{}2:5.1f\PYGZcb{}° \PYGZob{}3:\PYGZcb{} Dist = \PYGZob{}4:5.1f\PYGZcb{} km\PYGZsq{}}\PYG{o}{.}\PYG{n}{format}\PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{date}\PYG{p}{,} \PYG{n}{az}\PYG{p}{,} \PYG{n}{alt}\PYG{p}{,} \PYG{n}{vistext}\PYG{p}{[}\PYG{n}{visible}\PYG{p}{],} \PYG{n}{polar}\PYG{o}{.}\PYG{n}{range} \PYG{o}{/} \PYG{l+m+mi}{1000}\PYG{p}{))}
+    \PYG{c+c1}{\PYGZsh{}Concentrating on the largest window}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{date} \PYG{o}{\PYGZgt{}} \PYG{n}{ephem}\PYG{o}{.}\PYG{n}{Date}\PYG{p}{((}\PYG{l+m+mi}{2019}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{21}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{,} \PYG{l+m+mi}{15}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{)))} \PYG{o+ow}{and} \PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{date} \PYG{o}{\PYGZlt{}} \PYG{n}{ephem}\PYG{o}{.}\PYG{n}{Date}\PYG{p}{((}\PYG{l+m+mi}{2019}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{21}\PYG{p}{,} \PYG{l+m+mi}{22}\PYG{p}{,} \PYG{l+m+mi}{30}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{))):}
+        \PYG{n}{doppler}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{frequency} \PYG{o}{*} \PYG{n}{polar}\PYG{o}{.}\PYG{n}{range\PYGZus{}velocity} \PYG{o}{/} \PYG{l+m+mf}{3e8}\PYG{p}{)}
+        \PYG{n}{window}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{date}\PYG{p}{)}
+        \PYG{n}{windowAlt}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{alt}\PYG{p}{)}
+        \PYG{n}{windowAz}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{az}\PYG{p}{)}
+        \PYG{n}{windowDist}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{polar}\PYG{o}{.}\PYG{n}{range} \PYG{o}{/} \PYG{l+m+mi}{1000}\PYG{p}{)}
+        \PYG{n}{windowLon}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{sLon}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])}
+        \PYG{n}{windowLat}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{sLat}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])}
+\PYG{c+c1}{\PYGZsh{}Plotting}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{))}
+\PYG{n}{ax} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{axes}\PYG{p}{(}\PYG{n}{projection} \PYG{o}{=} \PYG{n}{ccrs}\PYG{o}{.}\PYG{n}{PlateCarree}\PYG{p}{())}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{gridlines}\PYG{p}{(}\PYG{n}{color} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}gray\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlim}\PYG{p}{((}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{180}\PYG{p}{,} \PYG{l+m+mi}{180}\PYG{p}{))}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylim}\PYG{p}{((}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{90}\PYG{p}{,} \PYG{l+m+mi}{90}\PYG{p}{))}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{LAND}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{OCEAN}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{RIVERS}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{COASTLINE}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{add\PYGZus{}feature}\PYG{p}{(}\PYG{n}{cartopy}\PYG{o}{.}\PYG{n}{feature}\PYG{o}{.}\PYG{n}{LAKES}\PYG{p}{,} \PYG{n}{alpha} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{sLon}\PYG{p}{,} \PYG{n}{sLat}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}r\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mf}{0.5}\PYG{p}{)}
+\PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{sVLon}\PYG{p}{)):}
+    \PYG{n}{ax}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{sVLon}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{n}{sVLat}\PYG{p}{[}\PYG{n}{j}\PYG{p}{],} \PYG{n}{color} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}mediumseagreen\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lon} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{pi}\PYG{p}{,} \PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lat} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{pi}\PYG{p}{,} \PYG{n}{marker} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}*\PYGZsq{}}\PYG{p}{,} \PYG{n}{color} \PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}b\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{ax}\PYG{o}{.}\PYG{n}{annotate}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Bondy\PYGZdq{}}\PYG{p}{,} \PYG{p}{(}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lon} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{pi}\PYG{p}{,}\PYG{n}{bondy}\PYG{o}{.}\PYG{n}{lat} \PYG{o}{*} \PYG{l+m+mi}{180} \PYG{o}{/} \PYG{n}{pi}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{savefig}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Groundtrack.png\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

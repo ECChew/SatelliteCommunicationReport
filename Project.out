@@ -21,3 +21,9 @@
 \BOOKMARK [1][-]{section.3.2}{Summary table}{chapter.3}% 21
 \BOOKMARK [1][-]{section.3.3}{Power Budget}{chapter.3}% 22
 \BOOKMARK [2][-]{subsection.3.3.1}{Battery capacity and solar cell area}{section.3.3}% 23
+\BOOKMARK [0][-]{appendix.A}{Python code}{}% 24
+\BOOKMARK [1][-]{section.A.1}{Main}{appendix.A}% 25
+\BOOKMARK [2][-]{subsection.A.1.1}{Altitude}{section.A.1}% 26
+\BOOKMARK [2][-]{subsection.A.1.2}{Azimuth}{section.A.1}% 27
+\BOOKMARK [1][-]{section.A.2}{Largest window}{appendix.A}% 28
+\BOOKMARK [2][-]{subsection.A.2.1}{Elevation, azimuth, distance and doppler shift on the largest window}{section.A.2}% 29
